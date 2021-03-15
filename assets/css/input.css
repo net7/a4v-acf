@@ -1,0 +1,207 @@
+.acf-field-a4v-field {
+    background: #fff;
+    border: #ccd0d4 solid 1px
+}
+
+.acf-field-a4v-field .filters {
+    border-bottom: #ccd0d4 solid 1px;
+    background: #fff
+}
+
+.acf-field-a4v-field .filters:after {
+    display: block;
+    clear: both;
+    content: ""
+}
+
+.acf-field-a4v-field .filters .filter {
+    margin: 0;
+    padding: 0;
+    float: left;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 7px 7px 7px 0
+}
+
+.acf-field-a4v-field .filters .filter:first-child {
+    padding-left: 7px
+}
+
+.acf-field-a4v-field .filters .filter input,.acf-field-a4v-field .filters .filter select {
+    margin: 0;
+    float: none
+}
+
+.acf-field-a4v-field .filters .filter input:focus,.acf-field-a4v-field .filters .filter input:active,.acf-field-a4v-field .filters .filter select:focus,.acf-field-a4v-field .filters .filter select:active {
+    outline: none;
+    box-shadow: none
+}
+
+.acf-field-a4v-field .filters .filter input {
+    border-color: transparent;
+    box-shadow: none;
+    padding-left: 3px;
+    padding-right: 3px
+}
+
+.acf-field-a4v-field .filters.-f2 .filter {
+    width: 50%
+}
+
+.acf-field-a4v-field .filters.-f3 .filter {
+    width: 25%
+}
+
+.acf-field-a4v-field .filters.-f3 .filter.-search {
+    width: 50%
+}
+
+.acf-field-a4v-field .list {
+    margin: 0;
+    padding: 5px;
+    height: 160px;
+    overflow: auto
+}
+
+.acf-field-a4v-field .list .acf-rel-label,.acf-field-a4v-field .list .acf-rel-item,.acf-field-a4v-field .list p {
+    padding: 5px;
+    margin: 0;
+    display: block;
+    position: relative;
+    min-height: 18px
+}
+
+.acf-field-a4v-field .list .acf-rel-label {
+    font-weight: bold
+}
+
+.acf-field-a4v-field .list .acf-rel-item {
+    cursor: pointer
+}
+
+.acf-field-a4v-field .list .acf-rel-item b {
+    text-decoration: underline;
+    font-weight: normal
+}
+
+.acf-field-a4v-field .list .acf-rel-item .thumbnail {
+    background: #e0e0e0;
+    width: 22px;
+    height: 22px;
+    float: left;
+    margin: -2px 5px 0 0
+}
+
+.acf-field-a4v-field .list .acf-rel-item .thumbnail img {
+    max-width: 22px;
+    max-height: 22px;
+    margin: 0 auto;
+    display: block
+}
+
+.acf-field-a4v-field .list .acf-rel-item .thumbnail.-icon {
+    background: #fff
+}
+
+.acf-field-a4v-field .list .acf-rel-item .thumbnail.-icon img {
+    max-height: 20px;
+    margin-top: 1px
+}
+
+.acf-field-a4v-field .list .acf-rel-item:hover {
+    background: #3875D7;
+    color: #fff
+}
+
+.acf-field-a4v-field .list .acf-rel-item:hover .thumbnail {
+    background: #a2bfec
+}
+
+.acf-field-a4v-field .list .acf-rel-item:hover .thumbnail.-icon {
+    background: #fff
+}
+
+.acf-field-a4v-field .list .acf-rel-item.disabled {
+    opacity: 0.5
+}
+
+.acf-field-a4v-field .list .acf-rel-item.disabled:hover {
+    background: transparent;
+    color: #333;
+    cursor: default
+}
+
+.acf-field-a4v-field .list .acf-rel-item.disabled:hover .thumbnail {
+    background: #e0e0e0
+}
+
+.acf-field-a4v-field .list .acf-rel-item.disabled:hover .thumbnail.-icon {
+    background: #fff
+}
+
+.acf-field-a4v-field .list ul {
+    padding-bottom: 5px
+}
+
+.acf-field-a4v-field .list ul .acf-rel-label,.acf-field-a4v-field .list ul .acf-rel-item,.acf-field-a4v-field .list ul p {
+    padding-left: 20px
+}
+
+.acf-field-a4v-field .selection {
+    position: relative
+}
+
+.acf-field-a4v-field .selection:after {
+    display: block;
+    clear: both;
+    content: ""
+}
+
+.acf-field-a4v-field .selection .values,.acf-field-a4v-field .selection .choices {
+    width: 50%;
+    background: #fff;
+    float: left
+}
+
+.acf-field-a4v-field .selection .choices {
+    background: #F9F9F9
+}
+
+.acf-field-a4v-field .selection .choices .list {
+    border-right: #DFDFDF solid 1px
+}
+
+.acf-field-a4v-field .selection .values .acf-icon {
+    position: absolute;
+    top: 4px;
+    right: 7px;
+    display: none
+}
+.acf-field-a4v-field .selection .values .acf-icon.-minus {
+    right: 30px;
+}
+
+html[dir="rtl"] .acf-field-a4v-field .selection .values .acf-icon {
+    right: auto;
+    left: 7px
+}
+
+.acf-field-a4v-field .selection .values .acf-rel-item:hover .acf-icon {
+    display: block
+}
+
+.acf-field-a4v-field .selection .values .acf-rel-item {
+    cursor: move
+}
+
+.acf-field-a4v-field .selection .values .acf-rel-item b {
+    text-decoration: none
+}
+
+.menu-item .acf-field-a4v-field ul {
+    width: auto
+}
+
+.menu-item .acf-field-a4v-field li {
+    display: block
+}
