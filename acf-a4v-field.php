@@ -17,6 +17,7 @@ if( ! defined( 'ABSPATH' ) ) exit;
 define( 'COLLECTION_ITEM_FIELD_ID',  "a4v_field_id" );
 define( 'COLLECTION_ITEM_FIELD_IMAGE',  "a4v_field_image" );
 define( 'COLLECTION_ITEM_FIELD_LABEL',  "a4v_field_label" );
+define( 'COLLECTION_ITEM_FIELD_TYPE',  "a4v_field_type" );
 
 // check if class already exists
 if( !class_exists('a4v_acf_plugin_a4v_field') ) :

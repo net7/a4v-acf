@@ -18,6 +18,10 @@
 			return this.$('.acf-a4v-field');
 		},
 		
+		$filter: function( type ) {
+			return this.$('[data-filter='+ type +']');
+		},
+
 		$list: function( list ) {
 			return this.$('.' + list + '-list');
 		},
@@ -50,7 +54,7 @@
 			var post_type = this.get('post_type');
 			return [
 			'<li>',
-				'<input type="hidden" name="' + this.getInputName() + '[]" value="' + props.id + "|||" + props.text + "|||" + props.image + '" />',
+				'<input type="hidden" name="' + this.getInputName() + '[]" value="' + props.id + "|||" + this.escapeString( props.text ) + "|||" + props.image +  "|||" + props.type + '" />',
 				'<span data-id="' + props.id + '" class="acf-rel-item">' + props.text,
 					'<a href="#" class="acf-icon -minus small dark" data-name="remove_item"></a>',
 					'<a href="#" class="acf-icon -pencil small dark" data-toggle="modal" data-target="#modal-addPostObject" data-edit="edit" data-name="add_a4v_item" data-child="' + post_type + '"></a>',
@@ -78,6 +82,7 @@
 				// Avoid browser remembering old scroll position and add event.
 				this.$list('choices').scrollTop(0).on('scroll', this.proxy(this.onScrollChoices));
 				
+				this.set("initialize", true);
 				// Fetch choices.
 				this.fetch();
 				
@@ -178,7 +183,8 @@
 			var html = this.newValue({
 				id: $el.data('id'),
 				text: $el.html(),
-				image: $el.data('image')
+				image: $el.data('image'),
+				type: $el.data('type')
 			});
 			this.$list('values').append( html )
 			
@@ -332,6 +338,14 @@
 				// set more (allows pagination scroll)
 				this.set('more', json.more );
 				
+				if( this.get("initialize") && json.types){
+					this.set("initialize", false);
+					$type_filter = this.$filter("type");
+					$type_filter.html("");
+					for (let prop in json.types) {
+						$($type_filter[0]).append("<option value='" + prop + "'>"+json.types[prop] + "</option>" )
+					};
+				}
 				// get new results
 				var html = this.walkChoices(json.results);
 				var $html = $( html );
@@ -409,7 +423,10 @@
 					
 					// single
 					} else {
-						html += '<li><span class="acf-rel-item" data-id="' + acf.escAttr( data.id ) + '"  data-image="' + acf.escAttr( data.image ) + '">' + acf.escHtml( data.label ) + '</span></li>';
+						html += '<li><span class="acf-rel-item"' +
+						'data-id="' + acf.escAttr( data.id ) + 
+						'" data-image="' + acf.escAttr( data.image ) +
+						'" data-type="' + acf.escAttr( data.parent_type ) + '">' + acf.escHtml( data.label ) + '</span></li>';
 					}
 				}
 				
@@ -418,16 +435,23 @@
 			};
 			
 			return walk( data );
+		},
+
+		escapeString( string ) {
+			return String(string).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
 		}
 		
 	});
 	
 	acf.registerFieldType( Field );
+
 	
 })(jQuery);
 
 
 (function($){
+
 
 	/**
 	*  initialize_field
@@ -487,7 +511,7 @@
 				
 			});
 		
-		});
+		});		
 	
 	}
 })(jQuery);

@@ -11,6 +11,18 @@ if( !class_exists('a4v_acf_field_A4v_field') ) :
 class a4v_acf_field_A4v_field extends acf_field {
 	
 	
+	private $filter_post_type_choices = array(
+		"oggetto-culturale" => "Oggetto culturale",
+		"a4.oc.ua.UA" => "Unità archivistica",
+		"uasc.oc.uasc.UASC" => "Unità Cartografica",
+		"aggregazione-logica" => "Aggregazione logica",
+		"persona" => "Entità persona",
+		"luogo" => "Entità luogo",
+		"organizzazione" => "Entità organizzazione",	
+		"famiglia" => "Entità famiglia",
+		"cosa notevole" => "Cosa notevole",
+		"evento" => "Entità evento"	
+	);
 	/*
 	*  __construct
 	*
@@ -136,6 +148,15 @@ class a4v_acf_field_A4v_field extends acf_field {
 			'prepend'		=> '',
 		));
 
+		/*acf_render_field_setting( $field, array(
+			'label'			=> __('select resource','a4v_textdomain'),
+			'instructions'	=> __('yes to allow resource selection','a4v_textdomain'),
+			'type'			=> 'true_false',
+			'ui'			=> 1,
+			'name'			=> 'arianna_select_resource',
+			'prepend'		=> '',
+		));*/
+
 		$field['max'] = 1;
 	}
 	
@@ -165,15 +186,6 @@ class a4v_acf_field_A4v_field extends acf_field {
 		*/
 	
 		
-		$filter_post_type_choices = array(
-			"select type",
-			"UA" => "Unità archivistica",
-			"OA" => "OA",
-			"foto" => "foto",
-			"mappa" => "mappa",
-			"AL" => "aggregazione logica",
-			"FF" => "fondo fotografico"
-		);
 		/*
 		*  Create a simple text input using the 'font_size' setting.
 		*/
@@ -183,6 +195,8 @@ class a4v_acf_field_A4v_field extends acf_field {
 			'class'				=> "acf-a4v-field {$field['class']}",
 			'data-post_type'	=> $field['arianna_post_type'],
 			'data-s'			=> '',
+			'data-id'			=> '',
+			'data-type'			=> '',
 			'data-paged'		=> 1,
 			'data-taxonomy'		=> '',
 		);
@@ -190,15 +204,19 @@ class a4v_acf_field_A4v_field extends acf_field {
 		?>
 		<?php acf_hidden_input( array('name' => $field['name'], 'value' => '') ); ?>
 		<div <?php echo acf_esc_attrs($atts); ?>>
-		<div class="filters -f2">
+		<div class="filters -f3">
 			
 			<div class="filter -search">
-				<?php acf_text_input( array('placeholder' => __("Search...",'acf'), 'data-filter' => 's') ); ?>
+				<?php acf_text_input( array('placeholder' => __("Search title...",'acf'), 'data-filter' => 's') ); ?>
+			</div>
+			
+			<div class="filter -id">
+				<?php acf_text_input( array('placeholder' => __("Search id",'acf'), 'data-filter' => 'id') ); ?>
 			</div>
 			
 			
-			<div class="filter -post_type">
-				<?php acf_select_input( array('choices' => $filter_post_type_choices, 'data-filter' => 'post_type') ); ?>
+			<div class="filter -type">
+				<?php acf_select_input( array('choices' => $this->filter_post_type_choices, 'data-filter' => 'type') ); ?>
 			</div>	
 		
 		</div>
@@ -464,7 +482,7 @@ class a4v_acf_field_A4v_field extends acf_field {
 
 		foreach ($value as $v){
 			$t = explode("|||", $v);
-			$values[$t[0]] = ["id" => $t[0], "label" => $t[1], "image" => $t[2]];
+			$values[$t[0]] = ["id" => $t[0], "label" => $t[1], "image" => $t[2], 'type' => $t[3]];
 		}
 		
 		$query = new WP_Query([
@@ -718,6 +736,8 @@ class a4v_acf_field_A4v_field extends acf_field {
 			'post_id'		=> 0,
 			'max' 		    => 1,
 			's'				=> '',
+			'id'			=> '',
+			'type'			=> '',
 			'field_key'		=> '',
 			'paged'			=> 1,
 			'post_type'		=> '',
@@ -736,9 +756,30 @@ class a4v_acf_field_A4v_field extends acf_field {
 
 		$results = $a4view_connector->get_resources($options);
 
+		$types = [];
+		if(isset($results['data']['search']['facets'])) {
+			foreach( $results['data']['search']['facets'] as $facet ){
+				if( $facet['id'] == "query-links" ){
+					foreach ($facet['data'] as $d){
+						$types[] =  $d['value']; //$this->filter_post_type_choices[$d['value']];
+					}
+				} else if( $facet['id'] == "doc-classification"){
+					foreach ($facet['data'] as $d){
+						$types[] = $d['value']; //$this->filter_post_type_choices[$d['value']];
+					}
+				}
+			}
+		}
+
+		foreach($this->filter_post_type_choices as $key => $val ) {
+			if (!in_array($key, $types)){
+				unset ($this->filter_post_type_choices[$key]);
+			}
+		}
 		// get choices
 		$response = array(
 			'results'	=> $results['data']['search']['results']['items'],
+			'types'    => $this->filter_post_type_choices,
 			'limit'		=> $options['limit']
 		);
 		// return
@@ -747,6 +788,7 @@ class a4v_acf_field_A4v_field extends acf_field {
 	}
 	
 	
+
 }
 
 

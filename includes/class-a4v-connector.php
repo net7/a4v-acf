@@ -53,8 +53,8 @@ class A4v_Connector {
                             limit: 10
                             order: "count"
                         }
-                        { id: "entity-search", type: "value" }
-                        { id: "entity-links", type: "value", searchData: ["entity-type"] }
+                        { id: "resource-id", type: "value" }
+                        { id: "doc-classification", type: "value" }
                     ]
                     page: { offset:$offset, limit: {$params['limit']} }
                     results: {
@@ -78,10 +78,13 @@ class A4v_Connector {
                             searchIn: [{ key: "source.entityType", operator: "=" }]
                         }
                         {
-                            facetId: "entity-links"
-                            value: []
-                            searchIn: [{ key: "relatedEntities.id", operator: "=" }]
-                            pagination: { limit: 50, offset: 0 }
+                            facetId: "resource-id"
+                            value: "{$params['id']}"
+                            searchIn: [{ key: "id", operator: "LIKE" }]
+                        }
+                        {
+                            facetId: "doc-classification"
+                            value: "{$params['type']}"
                         }
                     ]
                 }
@@ -98,20 +101,29 @@ class A4v_Connector {
                             id
                             label
                             typeOfEntity
+                            parent_type
                         }
                         ... on Item {
                             id
                             label                               
                             document_type
                             document_classification
+                            parent_type
                             image
                         }
+                    }
+                }
+                facets {
+                    id
+                    type
+                    data {
+                        label
+                        value
                     }
                 }
             }                   
 		}
 GRAPHQL;
-
         $result = $this->graphql_query($this->endpoint, $query);
         return $result;
 	}
