@@ -81,10 +81,13 @@ class a4v_acf_plugin_a4v_field {
 		load_plugin_textdomain( 'a4v_textdomain', false, plugin_basename( dirname( __FILE__ ) ) . '/lang' ); 
 		
 		
+		
 		// include
-		include_once('fields/class-a4v-acf-field-A4v-field-v' . $version . '.php');			
-		include_once('includes/class-a4v-connector.php');
-		include_once('includes/utils.php');
+		$dir =  plugin_dir_path(  __FILE__  ) ;
+		require_once plugin_dir_path(  __FILE__  ) . 'fields/class-a4v-acf-field-A4v-field-v' . $version . '.php';			
+		require_once plugin_dir_path(  __FILE__  ) . 'includes/class-a4v-connector.php';
+		require_once plugin_dir_path(  __FILE__  ) . 'includes/utils.php';
+	
 	
 	}
 	
