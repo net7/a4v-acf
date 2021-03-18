@@ -84,9 +84,9 @@ class a4v_acf_plugin_a4v_field {
 		
 		// include
 		$dir =  plugin_dir_path(  __FILE__  ) ;
-		require_once plugin_dir_path(  __FILE__  ) . 'fields/class-a4v-acf-field-A4v-field-v' . $version . '.php';			
-		require_once plugin_dir_path(  __FILE__  ) . 'includes/class-a4v-connector.php';
-		require_once plugin_dir_path(  __FILE__  ) . 'includes/utils.php';
+		require plugin_dir_path( __FILE__ )  . 'fields/class-a4v-acf-field-A4v-field-v' . $version . '.php';			
+		require plugin_dir_path( __FILE__ ) .  'includes/class-a4v-connector.php';
+		require plugin_dir_path( __FILE__ ) .  'includes/utils.php';
 	
 	
 	}
