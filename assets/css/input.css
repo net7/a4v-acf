@@ -209,3 +209,8 @@ html[dir="rtl"] .acf-field-a4v-field .selection .values .acf-icon {
 .acf-rel-item em  {
     font-style: normal;
 }
+
+#modal-muruca-container .modal {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
