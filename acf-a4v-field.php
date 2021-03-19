@@ -1,7 +1,7 @@
 <?php
 
 /*
-Plugin Name: Advanced Custom Fields: FIELD_LABEL
+Plugin Name: Advanced Custom Fields: A4v field
 Plugin URI: PLUGIN_URL
 Description: SHORT_DESCRIPTION
 Version: 1.0.0
