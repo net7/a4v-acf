@@ -12,10 +12,20 @@ class a4v_acf_field_A4v_field extends acf_field {
 	
 	
 	private $filter_post_type_choices = array(
-		"oggetto-culturale" => "Oggetto culturale",
-		"a4.oc.ua.UA" => "Unità archivistica",
-		"uasc.oc.uasc.UASC" => "Unità Cartografica",
+		"oggetto-culturale" => "oggetto culturale",
+		"a4.oc.ua.UA" => "unità archivistica",
+		"la.oc.la.LA" => "libro antico",
+		"veac301.oc.veac301.VEAC301" => "vestimento (VEAC 3.01)",
+		"f400.oc.f400.F400" => "fotografia (F 4.00)",
+		"uasc.oc.uasc.UASC" => "cartografica",
+		"dc.oc.dc.DC" => "scheda Dublin Core",
+		"oa300.oc.oa300.OA300" => "Scheda OA (3.00)",
+		"rmmus.oc.rmmus.RMMUS" => "materiale musicale",
+		"oac300.oc.oac300.OAC300" => "opera d'arte contemporanea (OAC 3.00)",
+		"audiovideo.oc.audiovideo.AudioVideo" => "audio/video",
 		"aggregazione-logica" => "Aggregazione logica",
+		"ff400.al.ff400.FF400" => "fondo fotografico (FF 4.00)",
+		"a4.al.al.AL" => "Aggregazione logica",		
 		"persona" => "Entità persona",
 		"luogo" => "Entità luogo",
 		"organizzazione" => "Entità organizzazione",	
