@@ -515,7 +515,7 @@ class a4v_acf_field_A4v_field extends acf_field {
 			foreach ($values as $id => $v){
 				$pid = wp_insert_post(array(
 					"ID" => 0,
-					"post_title" => $v['label'],
+					"post_title" => strip_tags($v['label']),
 					"post_type" => $field['arianna_post_type'],
 					"post_status" => "publish"
 				));
