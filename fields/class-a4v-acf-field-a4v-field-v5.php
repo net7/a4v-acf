@@ -492,7 +492,7 @@ class a4v_acf_field_A4v_field extends acf_field {
 
 		foreach ($value as $v){
 			$t = explode("|||", $v);
-			$values[$t[0]] = ["id" => $t[0], "label" => $t[1], "image" => $t[2], 'type' => $t[3]];
+			$values[$t[0]] = ["id" => $t[0], "label" => $t[1], "image" => $t[2], 'type' => $t[3], 'classification' => $t[4]];
 		}
 		
 		$query = new WP_Query([

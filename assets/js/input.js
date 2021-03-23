@@ -54,7 +54,7 @@
 			var post_type = this.get('post_type');
 			return [
 			'<li>',
-				'<input type="hidden" name="' + this.getInputName() + '[]" value="' + props.id + "|||" + this.escapeString( props.text ) + "|||" + props.image +  "|||" + props.type + '" />',
+				'<input type="hidden" name="' + this.getInputName() + '[]" value="' + props.id + "|||" + this.escapeString( props.text ) + "|||" + props.image +  "|||" + props.type + "|||" + props.classification + '" />',
 				'<span data-id="' + props.id + '" class="acf-rel-item">' + props.text,
 					'<a href="#" class="acf-icon -minus small dark" data-name="remove_item"></a>',
 					'<a href="#" class="acf-icon -pencil small dark" data-toggle="modal" data-target="#modal-addPostObject" data-edit="edit" data-name="add_a4v_item" data-child="' + post_type + '"></a>',
@@ -184,7 +184,8 @@
 				id: $el.data('id'),
 				text: $el.html(),
 				image: $el.data('image'),
-				type: $el.data('type')
+				type: $el.data('type'),
+				classification: $el.data('classification'),
 			});
 			this.$list('values').append( html )
 			
@@ -426,6 +427,7 @@
 						html += '<li><span class="acf-rel-item"' +
 						'data-id="' + acf.escAttr( data.id ) + 
 						'" data-image="' + acf.escAttr( data.image ) +
+						'" data-classification="' + acf.escAttr( data.document_classification ) +
 						'" data-type="' + acf.escAttr( data.parent_type ) + '">' + acf.escHtml( data.label ) + '</span></li>';
 					}
 				}

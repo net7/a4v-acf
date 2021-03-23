@@ -18,6 +18,7 @@ define( 'COLLECTION_ITEM_FIELD_ID',  "a4v_field_id" );
 define( 'COLLECTION_ITEM_FIELD_IMAGE',  "a4v_field_image" );
 define( 'COLLECTION_ITEM_FIELD_LABEL',  "a4v_field_label" );
 define( 'COLLECTION_ITEM_FIELD_TYPE',  "a4v_field_type" );
+define( 'COLLECTION_ITEM_FIELD_CLASSIFICATION',  "a4v_field_classification" );
 
 // check if class already exists
 if( !class_exists('a4v_acf_plugin_a4v_field') ) :
@@ -87,6 +88,8 @@ class a4v_acf_plugin_a4v_field {
 		require plugin_dir_path( __FILE__ )  . 'fields/class-a4v-acf-field-a4v-field-v' . $version . '.php';			
 		require plugin_dir_path( __FILE__ ) .  'includes/class-a4v-connector.php';
 		require plugin_dir_path( __FILE__ ) .  'includes/utils.php';
+		require plugin_dir_path( __FILE__ ) . 'includes/class-a4v-collection-cli.php';
+
 	
 	
 	}

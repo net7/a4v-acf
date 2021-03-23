@@ -128,6 +128,33 @@ GRAPHQL;
         return $result;
 	}
 
+    public function get_resource_by_id($ids = []) {
+
+        $ids_string = join(",", $ids);
+        $query = <<<GRAPHQL
+		    query {
+                getResourceById(id: $ids_string) {   
+                    ... on Entity {
+                        id
+                        label
+                        typeOfEntity
+                    }
+                    ... on Item {
+                        id
+                        label
+                        icon
+                        title
+                        subTitle
+                        image
+                        text
+                    }
+                }
+            }
+GRAPHQL;
+        $result = $this->graphql_query($this->endpoint, $query);
+        return $result;
+    }
+
 /** 
 	 * A curl wrapper to send graphql queries to Apollo Server 
 	 * returns always a json with data and errors
