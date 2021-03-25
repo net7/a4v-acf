@@ -20,6 +20,7 @@ define( 'COLLECTION_ITEM_FIELD_LABEL',  "a4v_field_label" );
 define( 'COLLECTION_ITEM_FIELD_TYPE',  "a4v_field_type" );
 define( 'COLLECTION_ITEM_FIELD_CLASSIFICATION',  "a4v_field_classification" );
 
+const MURUCA_ELASTICSEARCH_LOG_DIR = "/a4v-logs";
 // check if class already exists
 if( !class_exists('a4v_acf_plugin_a4v_field') ) :
 

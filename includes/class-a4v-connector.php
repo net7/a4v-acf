@@ -80,7 +80,7 @@ class A4v_Connector {
                         {
                             facetId: "resource-id"
                             value: "{$params['id']}"
-                            searchIn: [{ key: "id", operator: "LIKE" }]
+                            searchIn: [{ key: "id_arianna", operator: "LIKE" }]
                         }
                         {
                             facetId: "doc-classification"
@@ -102,6 +102,7 @@ class A4v_Connector {
                             label
                             typeOfEntity
                             parent_type
+                            document_type
                         }
                         ... on Item {
                             id
@@ -130,23 +131,25 @@ GRAPHQL;
 
     public function get_resource_by_id($ids = []) {
 
-        $ids_string = join(",", $ids);
+        $ids_string =array_map(function($i){return '"'.$i.'"';}, $ids);
+        $ids_string = join(",", $ids_string);
         $query = <<<GRAPHQL
 		    query {
-                getResourceById(id: $ids_string) {   
+                getResourceById(id: [$ids_string]) {  
                     ... on Entity {
                         id
                         label
                         typeOfEntity
+                        parent_type         
+                        document_type               
                     }
                     ... on Item {
                         id
-                        label
-                        icon
-                        title
-                        subTitle
+                        label                               
+                        document_type
+                        document_classification
+                        parent_type
                         image
-                        text
                     }
                 }
             }

@@ -16,14 +16,20 @@ function a4v_set_arianna_item_metafields($post_id, $data){
         $data[$d] = $value !== "undefined" &&  $value !== "null" ? $value : null;
     }
 
-   add_post_meta($post_id, COLLECTION_ITEM_FIELD_ID, $data['id'], true);
-   add_post_meta($post_id, COLLECTION_ITEM_FIELD_LABEL, $data['label'], true);
-   add_post_meta($post_id, COLLECTION_ITEM_FIELD_IMAGE, $data['image'], true);
-   add_post_meta($post_id, COLLECTION_ITEM_FIELD_TYPE, $data['type'], true);
-   add_post_meta($post_id, COLLECTION_ITEM_FIELD_CLASSIFICATION, $data['classification'], true);
+   update_post_meta($post_id, COLLECTION_ITEM_FIELD_ID, $data['id']);
+   update_post_meta($post_id, COLLECTION_ITEM_FIELD_LABEL, $data['label']);
+   update_post_meta($post_id, COLLECTION_ITEM_FIELD_IMAGE, $data['image']);
+   update_post_meta($post_id, COLLECTION_ITEM_FIELD_TYPE, $data['type']);
+   update_post_meta($post_id, COLLECTION_ITEM_FIELD_CLASSIFICATION, $data['classification']);
 }
 
 function a4v_write_log($log_dir, $message) {
-    $current_log_file =  $log_dir . "/" . date("Y-m-d") . ".log";
+    $upload_dir = wp_upload_dir();
+
+    $current_log_file =  $upload_dir['basedir'] . "/" .  $log_dir . "/" . date("Y-m-d") . ".log";
+
+    if( !file_exists($upload_dir['basedir'] . "/" .  $log_dir)) {
+        mkdir($upload_dir['basedir'] . "/" .  $log_dir);
+    }
     file_put_contents($current_log_file,  "\n" . date("Y-m-d H:i:s ")  . $message, FILE_APPEND);
 }

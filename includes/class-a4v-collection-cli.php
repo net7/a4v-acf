@@ -24,20 +24,41 @@ class A4v_Collection_Cli {
         );
         $result = [];
         foreach( $posts as $pid) {
-            $result[$pid] = a4v_get_arianna_item_metafields($pid);
+            $result[get_post_meta($pid, COLLECTION_ITEM_FIELD_ID, true)] = $pid ;
         }
         $url = get_option(MURUCA_CORE_PREFIX . "_graphql_url");
         $token = get_option(MURUCA_CORE_PREFIX . "_graphql_token");
         $a4view_connector = new A4v_Connector($url, $token);
-        var_dump(array_column($result, COLLECTION_ITEM_FIELD_ID));
-		$results = $a4view_connector->get_resource_by_id(array_keys($result));
         
+        $response = $a4view_connector->get_resource_by_id(array_keys($result));
+        if( isset( $response['error']) ){
+            a4v_write_log(MURUCA_ELASTICSEARCH_LOG_DIR, "error: " . $response['error']);
+            WP_CLI::error( $response['error'] );
+        }
+        
+        if( $response['data']['getResourceById'] && is_array($response['data']['getResourceById'])){
+            
+            $count = 1;
+            foreach( $response['data']['getResourceById'] as $item ){
+                $params = [
+                    "id" => $item['id'], 
+                    "label" => $item['label'], 
+                    "image" => isset($item['image']) ? $item['image'] : "" , 
+                    'type' => isset($item['parent_type']) ? $item['parent_type'] : "", 
+                    'classification' => !empty($item['document_classification']) ? $item['document_classification'] :  $item['document_type'] , 
+                ];
+                
+                a4v_set_arianna_item_metafields($result[$item['id']], $params);
+                a4v_write_log(MURUCA_ELASTICSEARCH_LOG_DIR, "$count: updated " . $item['id'] ." - wp id ". $result[$item['id']] );
+                $count++;
+            }
+        }
+            
         if ($result['errors']) {
             WP_CLI::error($result["errors"] );
         } else {
             WP_CLI::success( __("You have succesfully indexed ", MURUCA_CORE_TEXTDOMAIN)); 
         }
-        wp_die();
     }
 
 
